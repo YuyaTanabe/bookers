@@ -1,0 +1,20 @@
+<% if flash.notice %>
+  <p class="notice"> <%= flash.notice %></p>
+<% end %>
+
+
+<p>
+  <strong>Title:</strong>
+  <%= @note.title %>
+</p>
+
+<p>
+  <strong>Body:</strong>
+  <%= @note.body %>
+</p>
+
+
+
+<a><%= link_to "Edit", edit_note_path(@note.id), class:"edit_#{@note.id}" %></a>
+|
+<a><%= link_to "Back", notes_path, class:"back" %></a>

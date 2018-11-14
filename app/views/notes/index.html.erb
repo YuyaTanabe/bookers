@@ -1,0 +1,56 @@
+<% if flash.notice %>
+  <p class="notice"> <%= flash.notice %></p>
+<% end %>
+
+<!-- 投稿一覧 -->
+<h1>Books</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Body</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+  <% @notes.each do |note| %>
+      <tr>
+        <td><%= note.title %></td>
+        <td><%= note.body %></td>
+        <td><%= link_to "Show", note_path(note.id), class:"show_#{note.id}" %></td>
+        <td><%= link_to "Edit", edit_note_path(note.id), class:"edit_#{note.id}" %></td>
+        <td><%= link_to "Destroy", note_path(note.id), class:"destroy_#{note.id}", method: :delete, "data-confirm" => "Are you sure?" %></td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<!-- 投稿機能 -->
+<h2>New book</h2>
+
+<%= form_for(@note) do |f| %>
+  <% if @note.errors.any? %>
+    <div id="error_explanation" class="alert alert-danger">
+      <h2><%= pluralize(@note.errors.count, "error") %> prohibited this book from being saved:</h2>
+      <ul>
+      <% @note.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+  <div class="field">
+    <%= f.label :title %>
+    <%= f.text_field :title, class:"book_title" %>
+  </div>
+  <div class="field">
+    <%= f.label :body %>
+    <%= f.text_area :body, class:"book_body" %>
+  </div>
+  <div class="actions"><%= f.submit 'Create Book' %></div>
+<% end %>
+
